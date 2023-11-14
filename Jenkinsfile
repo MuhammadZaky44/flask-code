@@ -17,8 +17,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'kubectl apply -f deployment.yaml'
-                sh 'minikube service python-service'
+                sh 'docker run --name python-program -dp 5000:5000 zakyfatih/python-program:latest'
             }
         }
     }
