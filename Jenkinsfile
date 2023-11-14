@@ -15,6 +15,12 @@ pipeline {
                 }
             }
         }
+        stage('Deploy') {
+            steps {
+                sh 'kubectl apply -f deployment.yaml'
+                sh 'minikube service python-service'
+            }
+        }
     }
 }
     
