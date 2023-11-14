@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Push Docker Image') {
             steps {
-                withCredentials([usernamePassword(credentialsId: '', passwordVariable: 'pass', usernameVariable: 'user')]) {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-zaky', passwordVariable: 'pass', usernameVariable: 'user')]) {
                     sh 'docker login -u $user --password $pass'
                     sh 'docker push zakyfatih/python-program:latest'
                 }
