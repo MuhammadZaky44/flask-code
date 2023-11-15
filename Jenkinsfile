@@ -5,13 +5,13 @@ node {
         checkout scm
     }
 
-    // stage('SonarQube analysis') {
-    //     steps {
-    //         withSonarQubeEnv('SonarQube') {
-    //             sh "./gradlew sonarqube"
-    //         }
-    //     }
-    // }
+    stage('SonarQube analysis') {
+        steps {
+            withSonarQubeEnv('SonarQube') {
+                sh "./gradlew sonarqube"
+            }
+        }
+    }
 
     stage("Quality gate") {
         steps {
