@@ -6,8 +6,8 @@ node {
     }
 
     stage('SonarQube analysis') {
-        steps {
-            withSonarQubeEnv('SonarQube') {
+        node {
+            withSonarQubeEnv(installationName: 'sonar-ict') {
                 sh "./gradlew sonarqube"
             }
         }
@@ -15,7 +15,9 @@ node {
 
     stage("Quality gate") {
         steps {
-            waitForQualityGate abortPipeline: true
+            timeout(time: 2, unit: 'MINUTES') {
+                waitForQualityGate abortPipeline: true
+            }
         }
     }
 
