@@ -16,7 +16,7 @@ node {
     }
 
     stage('Push image') {
-        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-zaky') {
+        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub_zaky') {
             app.push("${env.BUILD_NUMBER}")
         }
     }
