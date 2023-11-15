@@ -5,6 +5,20 @@ node {
         checkout scm
     }
 
+    stage('SonarQube analysis') {
+        steps {
+            withSonarQubeEnv('SonarQube') {
+                sh "./gradlew sonarqube"
+            }
+        }
+    }
+
+    stage("Quality gate") {
+        steps {
+            waitForQualityGate abortPipeline: true
+        }
+    }
+
     stage('Build image') {
        app = docker.build("zakyfatih/python-program")
     }
@@ -22,7 +36,8 @@ node {
     }
     
     stage('Trigger ManifestUpdate') {
-                echo "triggering updatemanifestjob"
-                build job: 'updatemanifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
-        }
+        echo "triggering updatemanifestjob"
+        build job: 'updatemanifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
+    }
+    
 }
