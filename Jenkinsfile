@@ -8,7 +8,7 @@ node {
     stage('SonarQube analysis') {
         node {
             withSonarQubeEnv(installationName: 'sonar-ict') {
-                sh "./gradlew sonarqube"
+                sh "sonar:sonar"
             }
         }
     }
