@@ -6,10 +6,9 @@ node {
     }
 
     stage('SonarQube analysis') {
-        node {
-            withSonarQubeEnv(installationName: 'sonar-ict') {
-                sh "sonar:sonar"
-            }
+        def scannerHome = tool 'SonarScanner 4.0'
+        withSonarQubeEnv('sonar-ict') {
+            sh "${scannerHome}/bin/sonar-scanner"
         }
     }
 
